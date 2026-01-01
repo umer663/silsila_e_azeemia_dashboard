@@ -37,6 +37,8 @@ dependencies:
   easy_localization: ^3.0.7
   flutter_localizations:
     sdk: flutter
+  image_picker: ^1.2.1
+  file_picker: ^10.3.8
 
 dev_dependencies:
   flutter_test:
