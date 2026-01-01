@@ -8,5 +8,10 @@
     "nav_digests": "Digests",
     "nav_media_gallery": "Media Gallery",
     "nav_contact_us": "Contact Us",
-    "nav_login": "Login"
+    "nav_login": "Login",
+    "email_label": "Email",
+    "password_label": "Password",
+    "login_action": "Login",
+    "email_hint": "Enter your email",
+    "password_hint": "Enter your password"
 }

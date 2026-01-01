@@ -8,5 +8,10 @@
     "nav_digests": "ڈائجسٹ",
     "nav_media_gallery": "میڈیا گیلری",
     "nav_contact_us": "رابطہ کریں",
-    "nav_login": "لاگ ان"
+    "nav_login": "لاگ ان",
+    "email_label": "ای میل",
+    "password_label": "پاس ورڈ",
+    "login_action": "داخل ہوں",
+    "email_hint": "اپنا ای میل درج کریں",
+    "password_hint": "اپنا پاس ورڈ درج کریں"
 }
