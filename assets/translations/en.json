@@ -13,5 +13,11 @@
     "password_label": "Password",
     "login_action": "Login",
     "email_hint": "Enter your email",
-    "password_hint": "Enter your password"
+    "password_hint": "Enter your password",
+    "sidebar_dashboard": "Dashboard",
+    "sidebar_books_upload": "Books Upload",
+    "sidebar_digests_upload": "Digests Upload",
+    "sidebar_media_upload": "Media Upload",
+    "sidebar_users_management": "Users Management",
+    "sidebar_reports": "Reports"
 }

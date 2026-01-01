@@ -13,5 +13,11 @@
     "password_label": "پاس ورڈ",
     "login_action": "داخل ہوں",
     "email_hint": "اپنا ای میل درج کریں",
-    "password_hint": "اپنا پاس ورڈ درج کریں"
+    "password_hint": "اپنا پاس ورڈ درج کریں",
+    "sidebar_dashboard": "ڈیش بورڈ",
+    "sidebar_books_upload": "کتب اپ لوڈ",
+    "sidebar_digests_upload": "ڈائجسٹ اپ لوڈ",
+    "sidebar_media_upload": "میڈیا اپ لوڈ",
+    "sidebar_users_management": "صارفین کا انتظام",
+    "sidebar_reports": "رپورٹس"
 }

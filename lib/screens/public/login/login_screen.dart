@@ -106,7 +106,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                         const SizedBox(height: 32),
                         ElevatedButton(
                           onPressed: () {
-                            // TODO: Implement login logic
+                            if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+                              Navigator.pushReplacementNamed(context, '/dashboard');
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 16),

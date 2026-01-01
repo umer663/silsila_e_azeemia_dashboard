@@ -8,6 +8,13 @@ import 'package:silsila_e_azeemia_dashboard/screens/public/digests/digests_scree
 import 'package:silsila_e_azeemia_dashboard/screens/public/home/home_screen.dart';
 import 'package:silsila_e_azeemia_dashboard/screens/public/login/login_screen.dart';
 import 'package:silsila_e_azeemia_dashboard/screens/public/media_gallery/media_gallery_screen.dart';
+import 'package:silsila_e_azeemia_dashboard/screens/private/books_upload/books_upload_screen.dart';
+import 'package:silsila_e_azeemia_dashboard/screens/private/dashboard/dashboard_screen.dart';
+import 'package:silsila_e_azeemia_dashboard/screens/private/digests_upload/digests_upload_screen.dart';
+import 'package:silsila_e_azeemia_dashboard/screens/private/media_upload/media_upload_screen.dart';
+import 'package:silsila_e_azeemia_dashboard/screens/private/reports/reports_screen.dart';
+import 'package:silsila_e_azeemia_dashboard/screens/private/users_management/users_management_screen.dart';
+import 'package:silsila_e_azeemia_dashboard/utils/no_transitions_builder.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +45,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'NooriNastaleeq',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android: NoTransitionsBuilder(),
+            TargetPlatform.iOS: NoTransitionsBuilder(),
+            TargetPlatform.linux: NoTransitionsBuilder(),
+            TargetPlatform.windows: NoTransitionsBuilder(),
+            TargetPlatform.macOS: NoTransitionsBuilder(),
+          },
+        ),
       ),
       builder: (context, child) {
         return Directionality(textDirection: ui.TextDirection.rtl, child: child!);
@@ -51,6 +67,12 @@ class MyApp extends StatelessWidget {
         MediaGalleryScreen.routeName: (context) => const MediaGalleryScreen(),
         ContactUsScreen.routeName: (context) => const ContactUsScreen(),
         LoginScreen.routeName: (context) => const LoginScreen(),
+        DashboardScreen.routeName: (context) => const DashboardScreen(),
+        BooksUploadScreen.routeName: (context) => const BooksUploadScreen(),
+        DigestsUploadScreen.routeName: (context) => const DigestsUploadScreen(),
+        MediaUploadScreen.routeName: (context) => const MediaUploadScreen(),
+        UsersManagementScreen.routeName: (context) => const UsersManagementScreen(),
+        ReportsScreen.routeName: (context) => const ReportsScreen(),
       },
     );
   }
