@@ -1,5 +1,12 @@
 {
     "title": "Silsila-e-Azeemia Dashboard",
     "welcome": "Welcome",
-    "counter_text": "You have pushed the button this many times:"
+    "counter_text": "You have pushed the button this many times:",
+    "nav_home": "Home",
+    "nav_about_us": "About Us",
+    "nav_books": "Books",
+    "nav_digests": "Digests",
+    "nav_media_gallery": "Media Gallery",
+    "nav_contact_us": "Contact Us",
+    "nav_login": "Login"
 }

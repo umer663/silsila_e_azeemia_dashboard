@@ -1,5 +1,12 @@
 {
     "title": "سلسلہ عظیمیہ ڈیش بورڈ",
     "welcome": "خوش آمدید",
-    "counter_text": "آپ نے اتنی بار بٹن دبایا ہے:"
+    "counter_text": "آپ نے اتنی بار بٹن دبایا ہے:",
+    "nav_home": "ہوم",
+    "nav_about_us": "ہمارے بارے میں",
+    "nav_books": "کتب",
+    "nav_digests": "ڈائجسٹ",
+    "nav_media_gallery": "میڈیا گیلری",
+    "nav_contact_us": "رابطہ کریں",
+    "nav_login": "لاگ ان"
 }
