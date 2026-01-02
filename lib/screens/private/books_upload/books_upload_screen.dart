@@ -5,29 +5,10 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:silsila_e_azeemia_dashboard/services/api_service.dart';
 import 'package:silsila_e_azeemia_dashboard/widgets/private_scaffold.dart';
 
-class Book {
-  final String name;
-  final String author;
-  final String totalPages;
-  final String publishedYear;
-  final String category;
-  final XFile? image;
-  final PlatformFile? bookFile;
-  final bool isPurchaseRequired;
-
-  Book({
-    required this.name,
-    required this.author,
-    required this.totalPages,
-    required this.publishedYear,
-    required this.category,
-    this.image,
-    this.bookFile,
-    this.isPurchaseRequired = false,
-  });
-}
+import 'package:silsila_e_azeemia_dashboard/model/book_schema.dart';
 
 class BooksUploadScreen extends StatefulWidget {
   static const String routeName = '/books_upload';
@@ -134,9 +115,17 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
     }
   }
 
-  void _saveBook() {
+  final ApiService _apiService = ApiService();
+
+  void _saveBook() async {
     if (_formKey.currentState!.validate()) {
-      setState(() {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(child: CircularProgressIndicator()),
+      );
+
+      try {
         final newBook = Book(
           name: _nameController.text,
           author: _selectedAuthor!,
@@ -149,13 +138,23 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
         );
 
         if (_editingIndex != null) {
+          // Edit logic (update API call if needed)
           _books[_editingIndex!] = newBook;
         } else {
+          await _apiService.addBook(newBook);
           _books.add(newBook);
         }
+
+        if (!mounted) return;
+        Navigator.pop(context); // Close loader
         _onSearchChanged();
         _isFormVisible = false;
-      });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Book added successfully')));
+      } catch (e) {
+        if (!mounted) return;
+        Navigator.pop(context); // Close loader
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+      }
     }
   }
 
@@ -389,7 +388,7 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
                                       : null,
                                 ),
                                 DropdownButtonFormField<String>(
-                                  value: _selectedAuthor,
+                                  initialValue: _selectedAuthor,
                                   decoration: InputDecoration(labelText: 'book_author_label'.tr()),
                                   items: _authors
                                       .map((author) => DropdownMenuItem(value: author, child: Text(author)))

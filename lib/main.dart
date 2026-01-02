@@ -16,9 +16,12 @@ import 'package:silsila_e_azeemia_dashboard/screens/private/reports/reports_scre
 import 'package:silsila_e_azeemia_dashboard/screens/private/users_management/users_management_screen.dart';
 import 'package:silsila_e_azeemia_dashboard/utils/no_transitions_builder.dart';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await dotenv.load(fileName: "assets/.env");
 
   runApp(
     EasyLocalization(
