@@ -11,7 +11,8 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
+class _LoginScreenState extends State<LoginScreen>
+    with SingleTickerProviderStateMixin {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
@@ -22,15 +23,20 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 800));
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeIn));
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.5),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeOutBack));
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
+    );
+    _slideAnimation =
+        Tween<Offset>(begin: const Offset(0, 0.5), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeOutBack,
+          ),
+        );
     _animationController.forward();
   }
 
@@ -57,7 +63,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                 constraints: const BoxConstraints(maxWidth: 400),
                 child: Card(
                   elevation: 8,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(32.0),
                     child: Column(
@@ -66,23 +74,26 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                       children: [
                         Text(
                           'nav_login'.tr(),
-                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).primaryColor,
-                            fontFamily: 'NooriNastaleeq',
-                          ),
+                          style: Theme.of(context).textTheme.headlineMedium
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).primaryColor,
+                                fontFamily: 'NooriNastaleeq',
+                              ),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 32),
                         TextFormField(
                           controller: _emailController,
                           textAlign: TextAlign.left,
-                          style: const TextStyle(fontFamily: 'Arial'),
+                          style: const TextStyle(fontFamily: 'NooriNastaleeq'),
                           decoration: InputDecoration(
                             labelText: 'email_label'.tr(),
                             hintText: 'email_hint'.tr(),
                             prefixIcon: const Icon(Icons.email_outlined),
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                           ),
                           keyboardType: TextInputType.emailAddress,
                         ),
@@ -91,32 +102,44 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                           controller: _passwordController,
                           obscureText: !_isPasswordVisible,
                           textAlign: TextAlign.left,
-                          style: const TextStyle(fontFamily: 'Arial'),
+                          style: const TextStyle(fontFamily: 'NooriNastaleeq'),
                           decoration: InputDecoration(
                             labelText: 'password_label'.tr(),
                             hintText: 'password_hint'.tr(),
                             prefixIcon: const Icon(Icons.lock_outline),
                             suffixIcon: IconButton(
-                              icon: Icon(_isPasswordVisible ? Icons.visibility : Icons.visibility_off),
+                              icon: Icon(
+                                _isPasswordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
                               onPressed: () {
                                 setState(() {
                                   _isPasswordVisible = !_isPasswordVisible;
                                 });
                               },
                             ),
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                           ),
                         ),
                         const SizedBox(height: 32),
                         ElevatedButton(
                           onPressed: () {
-                            if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
-                              Navigator.pushReplacementNamed(context, '/dashboard');
+                            if (_emailController.text.isNotEmpty &&
+                                _passwordController.text.isNotEmpty) {
+                              Navigator.pushReplacementNamed(
+                                context,
+                                '/dashboard',
+                              );
                             }
                           },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 16),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                             backgroundColor: Theme.of(context).primaryColor,
                             foregroundColor: Colors.white,
                           ),
