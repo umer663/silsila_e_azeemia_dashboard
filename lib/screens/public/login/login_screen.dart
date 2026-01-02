@@ -76,6 +76,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                         const SizedBox(height: 32),
                         TextFormField(
                           controller: _emailController,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(fontFamily: 'Arial'),
                           decoration: InputDecoration(
                             labelText: 'email_label'.tr(),
                             hintText: 'email_hint'.tr(),
@@ -88,6 +90,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                         TextFormField(
                           controller: _passwordController,
                           obscureText: !_isPasswordVisible,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(fontFamily: 'Arial'),
                           decoration: InputDecoration(
                             labelText: 'password_label'.tr(),
                             hintText: 'password_hint'.tr(),
