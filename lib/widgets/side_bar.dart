@@ -13,13 +13,6 @@ class SideBar extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
-            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-            child: const Text(
-              'Admin Panel',
-              style: TextStyle(color: Colors.white, fontSize: 24, fontFamily: 'NooriNastaleeq'),
-            ),
-          ),
           _buildListTile(context, 'sidebar_dashboard', '/dashboard', Icons.dashboard),
           _buildListTile(context, 'sidebar_books_upload', '/books_upload', Icons.book),
           _buildListTile(context, 'sidebar_digests_upload', '/digests_upload', Icons.menu_book),

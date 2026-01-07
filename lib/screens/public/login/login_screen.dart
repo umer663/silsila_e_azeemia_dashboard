@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                         TextFormField(
                           controller: _emailController,
                           textAlign: TextAlign.left,
-                          style: const TextStyle(fontFamily: 'Arial'),
+                          style: const TextStyle(fontFamily: 'NooriNastaleeq'),
                           decoration: InputDecoration(
                             labelText: 'email_label'.tr(),
                             hintText: 'email_hint'.tr(),
@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                           controller: _passwordController,
                           obscureText: !_isPasswordVisible,
                           textAlign: TextAlign.left,
-                          style: const TextStyle(fontFamily: 'Arial'),
+                          style: const TextStyle(fontFamily: 'NooriNastaleeq'),
                           decoration: InputDecoration(
                             labelText: 'password_label'.tr(),
                             hintText: 'password_hint'.tr(),
