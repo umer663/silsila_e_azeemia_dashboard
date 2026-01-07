@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthService {
@@ -16,9 +17,13 @@ class AuthService {
   User? get currentUser => _supabase.auth.currentUser;
 
   Future<AuthResponse> signInWithEmailPassword({required String email, required String password}) async {
-    print('DEBUG: AuthService.signInWithEmailPassword called for $email'); // Debug Log
+    if (kDebugMode) {
+      print('DEBUG: AuthService.signInWithEmailPassword called for $email');
+    } // Debug Log
     final response = await _supabase.auth.signInWithPassword(email: email, password: password);
-    print('DEBUG: AuthService received response: ${response.user?.email}'); // Debug Log
+    if (kDebugMode) {
+      print('DEBUG: AuthService received response: ${response.user?.email}');
+    } // Debug Log
     return response;
   }
 

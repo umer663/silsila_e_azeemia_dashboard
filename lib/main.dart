@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:silsila_e_azeemia_dashboard/screens/public/about_us/about_us_screen.dart';
 import 'package:silsila_e_azeemia_dashboard/screens/public/books/books_screen.dart';
@@ -24,10 +25,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await dotenv.load(fileName: "assets/.env");
-  print('DEBUG: Dotenv loaded. URL: ${dotenv.env['SUPABASE_URL']}'); // Debug Log
+  if (kDebugMode) {
+    print('DEBUG: Dotenv loaded. URL: ${dotenv.env['SUPABASE_URL']}');
+  } // Debug Log
 
   await Supabase.initialize(url: dotenv.env['SUPABASE_URL']!, anonKey: dotenv.env['SUPABASE_KEY']!);
-  print('DEBUG: Supabase Initialized'); // Debug Log
+  if (kDebugMode) {
+    print('DEBUG: Supabase Initialized');
+  } // Debug Log
 
   runApp(
     EasyLocalization(

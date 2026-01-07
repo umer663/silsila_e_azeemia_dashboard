@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:silsila_e_azeemia_dashboard/services/auth_service.dart';
 import 'package:silsila_e_azeemia_dashboard/widgets/custom_app_bar.dart';
@@ -51,23 +52,31 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       return;
     }
 
-    print('DEBUG: Login Button Pressed'); // Debug Log
+    if (kDebugMode) {
+      print('DEBUG: Login Button Pressed');
+    } // Debug Log
     setState(() {
       _isLoading = true;
     });
 
     try {
-      print('DEBUG: Calling AuthService...'); // Debug Log
+      if (kDebugMode) {
+        print('DEBUG: Calling AuthService...');
+      } // Debug Log
       await AuthService().signInWithEmailPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text,
       );
-      print('DEBUG: Login Successful, navigating...'); // Debug Log
+      if (kDebugMode) {
+        print('DEBUG: Login Successful, navigating...');
+      } // Debug Log
       if (mounted) {
         Navigator.pushReplacementNamed(context, '/dashboard');
       }
     } on AuthException catch (e) {
-      print('DEBUG: AuthException: ${e.message}'); // Debug Log
+      if (kDebugMode) {
+        print('DEBUG: AuthException: ${e.message}');
+      } // Debug Log
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message), backgroundColor: Colors.red));
       }
