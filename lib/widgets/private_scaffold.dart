@@ -14,7 +14,7 @@ class PrivateScaffold extends StatelessWidget {
         title: Text(title, style: const TextStyle(fontFamily: 'NooriNastaleeq')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      drawer: const SideBar(), // Use Drawer for mobile, or persistent for desktop
+      drawer: MediaQuery.of(context).size.width > 600 ? null : const SideBar(), // Use Drawer only for mobile
       body: Row(
         children: [
           // Responsive check for Sidebar on desktop could go here, for now using Drawer for simplicity or both.
