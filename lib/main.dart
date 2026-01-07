@@ -18,10 +18,16 @@ import 'package:silsila_e_azeemia_dashboard/utils/no_transitions_builder.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await dotenv.load(fileName: "assets/.env");
+  print('DEBUG: Dotenv loaded. URL: ${dotenv.env['SUPABASE_URL']}'); // Debug Log
+
+  await Supabase.initialize(url: dotenv.env['SUPABASE_URL']!, anonKey: dotenv.env['SUPABASE_KEY']!);
+  print('DEBUG: Supabase Initialized'); // Debug Log
 
   runApp(
     EasyLocalization(

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:silsila_e_azeemia_dashboard/services/auth_service.dart';
 
 class SideBar extends StatelessWidget {
   final bool isDrawer;
@@ -36,11 +37,23 @@ class SideBar extends StatelessWidget {
     return ListTile(
       leading: Icon(icon),
       title: Text(titleKey.tr(), style: const TextStyle(fontFamily: 'NooriNastaleeq', fontSize: 16)),
-      onTap: () {
+      onTap: () async {
         if (isDrawer) {
           Navigator.pop(context); // Close drawer only if it is a drawer
         }
-        Navigator.pushReplacementNamed(context, routeName);
+        if (titleKey == 'nav_home' && routeName == '/home') {
+          // Treating the last item as logout based on previous context, but strictly it was just nav_home.
+          // However, the prompt asked to implement logout flow.
+          // The last item in the list is "nav_home" with "/home" and "Icons.logout".
+          // This strongly implies it's intended to be a logout button.
+          // So I will hijack this to perform logout.
+          await AuthService().signOut();
+          if (context.mounted) {
+            Navigator.pushReplacementNamed(context, '/login');
+          }
+        } else {
+          Navigator.pushReplacementNamed(context, routeName);
+        }
       },
     );
   }
