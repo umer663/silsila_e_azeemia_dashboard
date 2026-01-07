@@ -6,26 +6,61 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDesktop = MediaQuery.of(context).size.width > 1024;
+
     return AppBar(
+      automaticallyImplyLeading: !isDesktop,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text('title'.tr()),
           const SizedBox(width: 40), // Space between logo and links
-          _buildNavLink(context, 'nav_home'.tr(), () => Navigator.pushNamed(context, '/home')),
-          _buildNavLink(context, 'nav_about_us'.tr(), () => Navigator.pushNamed(context, '/about_us')),
-          _buildNavLink(context, 'nav_books'.tr(), () => Navigator.pushNamed(context, '/books')),
-          _buildNavLink(context, 'nav_digests'.tr(), () => Navigator.pushNamed(context, '/digests')),
-          _buildNavLink(context, 'nav_media_gallery'.tr(), () => Navigator.pushNamed(context, '/media_gallery')),
-          _buildNavLink(context, 'nav_contact_us'.tr(), () => Navigator.pushNamed(context, '/contact_us')),
-          _buildNavLink(context, 'nav_login'.tr(), () => Navigator.pushNamed(context, '/login')),
+          _buildNavLink(
+            context,
+            'nav_home'.tr(),
+            () => Navigator.pushNamed(context, '/home'),
+          ),
+          _buildNavLink(
+            context,
+            'nav_about_us'.tr(),
+            () => Navigator.pushNamed(context, '/about_us'),
+          ),
+          _buildNavLink(
+            context,
+            'nav_books'.tr(),
+            () => Navigator.pushNamed(context, '/books'),
+          ),
+          _buildNavLink(
+            context,
+            'nav_digests'.tr(),
+            () => Navigator.pushNamed(context, '/digests'),
+          ),
+          _buildNavLink(
+            context,
+            'nav_media_gallery'.tr(),
+            () => Navigator.pushNamed(context, '/media_gallery'),
+          ),
+          _buildNavLink(
+            context,
+            'nav_contact_us'.tr(),
+            () => Navigator.pushNamed(context, '/contact_us'),
+          ),
+          _buildNavLink(
+            context,
+            'nav_login'.tr(),
+            () => Navigator.pushNamed(context, '/login'),
+          ),
         ],
       ),
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
     );
   }
 
-  Widget _buildNavLink(BuildContext context, String title, VoidCallback onPressed) {
+  Widget _buildNavLink(
+    BuildContext context,
+    String title,
+    VoidCallback onPressed,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: TextButton(
@@ -33,7 +68,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Text(
           title, // Title is already translated by caller
           style: const TextStyle(
-            fontFamily: 'NooriNastaleeq', // Explicitly set font to ensure it renders
+            fontFamily:
+                'NooriNastaleeq', // Explicitly set font to ensure it renders
             // removed fontWeight: FontWeight.bold as it might break the custom font rendering if weight is missing
             color: Colors.black87,
             fontWeight: FontWeight.normal,
