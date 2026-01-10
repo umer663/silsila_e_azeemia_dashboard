@@ -21,16 +21,22 @@ class Book {
     required this.category,
     this.image,
     this.bookFile,
-    this.isPurchaseRequired = false,
+    this.isPurchaseRequired = true,
   });
 
   Future<FormData> toFormData() async {
     MultipartFile? imageFile;
     if (image != null) {
       if (kIsWeb) {
-        imageFile = MultipartFile.fromBytes(await image!.readAsBytes(), filename: image!.name);
+        imageFile = MultipartFile.fromBytes(
+          await image!.readAsBytes(),
+          filename: image!.name,
+        );
       } else {
-        imageFile = await MultipartFile.fromFile(image!.path, filename: image!.name);
+        imageFile = await MultipartFile.fromFile(
+          image!.path,
+          filename: image!.name,
+        );
       }
     }
 
@@ -38,11 +44,17 @@ class Book {
     if (bookFile != null) {
       if (kIsWeb) {
         if (bookFile!.bytes != null) {
-          bookFilePart = MultipartFile.fromBytes(bookFile!.bytes!, filename: bookFile!.name);
+          bookFilePart = MultipartFile.fromBytes(
+            bookFile!.bytes!,
+            filename: bookFile!.name,
+          );
         }
       } else {
         if (bookFile!.path != null) {
-          bookFilePart = await MultipartFile.fromFile(bookFile!.path!, filename: bookFile!.name);
+          bookFilePart = await MultipartFile.fromFile(
+            bookFile!.path!,
+            filename: bookFile!.name,
+          );
         }
       }
     }

@@ -9,50 +9,77 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     final isDesktop = MediaQuery.of(context).size.width > 1024;
 
     return AppBar(
-      automaticallyImplyLeading: !isDesktop,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text('title'.tr()),
-          const SizedBox(width: 40), // Space between logo and links
-          _buildNavLink(
-            context,
-            'nav_home'.tr(),
-            () => Navigator.pushNamed(context, '/home'),
-          ),
-          _buildNavLink(
-            context,
-            'nav_about_us'.tr(),
-            () => Navigator.pushNamed(context, '/about_us'),
-          ),
-          _buildNavLink(
-            context,
-            'nav_books'.tr(),
-            () => Navigator.pushNamed(context, '/books'),
-          ),
-          _buildNavLink(
-            context,
-            'nav_digests'.tr(),
-            () => Navigator.pushNamed(context, '/digests'),
-          ),
-          _buildNavLink(
-            context,
-            'nav_media_gallery'.tr(),
-            () => Navigator.pushNamed(context, '/media_gallery'),
-          ),
-          _buildNavLink(
-            context,
-            'nav_contact_us'.tr(),
-            () => Navigator.pushNamed(context, '/contact_us'),
-          ),
-          _buildNavLink(
-            context,
-            'nav_login'.tr(),
-            () => Navigator.pushNamed(context, '/login'),
-          ),
-        ],
-      ),
+      automaticallyImplyLeading: false,
+      leading: isDesktop
+          ? null
+          : PopupMenuButton<String>(
+              icon: const Icon(Icons.more_vert),
+              onSelected: (route) => Navigator.pushNamed(context, route),
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                _buildPopupMenuItem('nav_home'.tr(), '/home'),
+                _buildPopupMenuItem('nav_about_us'.tr(), '/about_us'),
+                _buildPopupMenuItem('nav_books'.tr(), '/books'),
+                _buildPopupMenuItem('nav_digests'.tr(), '/digests'),
+                _buildPopupMenuItem('nav_media_gallery'.tr(), '/media_gallery'),
+                _buildPopupMenuItem('nav_contact_us'.tr(), '/contact_us'),
+                _buildPopupMenuItem('nav_login'.tr(), '/login'),
+              ],
+            ),
+      title: isDesktop
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text('title'.tr()),
+                const SizedBox(width: 40), // Space between logo and links
+                _buildNavLink(
+                  context,
+                  'nav_home'.tr(),
+                  () => Navigator.pushNamed(context, '/home'),
+                ),
+                _buildNavLink(
+                  context,
+                  'nav_about_us'.tr(),
+                  () => Navigator.pushNamed(context, '/about_us'),
+                ),
+                _buildNavLink(
+                  context,
+                  'nav_books'.tr(),
+                  () => Navigator.pushNamed(context, '/books'),
+                ),
+                _buildNavLink(
+                  context,
+                  'nav_digests'.tr(),
+                  () => Navigator.pushNamed(context, '/digests'),
+                ),
+                _buildNavLink(
+                  context,
+                  'nav_media_gallery'.tr(),
+                  () => Navigator.pushNamed(context, '/media_gallery'),
+                ),
+                _buildNavLink(
+                  context,
+                  'nav_contact_us'.tr(),
+                  () => Navigator.pushNamed(context, '/contact_us'),
+                ),
+                _buildNavLink(
+                  context,
+                  'nav_login'.tr(),
+                  () => Navigator.pushNamed(context, '/login'),
+                ),
+              ],
+            )
+          : Text('title'.tr()),
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+    );
+  }
+
+  PopupMenuItem<String> _buildPopupMenuItem(String title, String route) {
+    return PopupMenuItem<String>(
+      value: route,
+      child: Text(
+        title,
+        style: const TextStyle(fontFamily: 'NooriNastaleeq', fontSize: 18),
+      ),
     );
   }
 

@@ -5,7 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:silsila_e_azeemia_dashboard/services/api_service.dart';
+import 'package:silsila_e_azeemia_dashboard/services/book_service.dart';
 import 'package:silsila_e_azeemia_dashboard/widgets/private_scaffold.dart';
 
 import 'package:silsila_e_azeemia_dashboard/model/book_schema.dart';
@@ -55,7 +55,11 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
   void _onSearchChanged() {
     setState(() {
       _filteredBooks = _books
-          .where((book) => book.name.toLowerCase().contains(_searchController.text.toLowerCase()))
+          .where(
+            (book) => book.name.toLowerCase().contains(
+              _searchController.text.toLowerCase(),
+            ),
+          )
           .toList();
     });
   }
@@ -115,7 +119,7 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
     }
   }
 
-  final ApiService _apiService = ApiService();
+  final BookService _bookService = BookService();
 
   void _saveBook() async {
     if (_formKey.currentState!.validate()) {
@@ -141,7 +145,7 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
           // Edit logic (update API call if needed)
           _books[_editingIndex!] = newBook;
         } else {
-          await _apiService.addBook(newBook);
+          await _bookService.addBook(newBook);
           _books.add(newBook);
         }
 
@@ -149,11 +153,15 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
         Navigator.pop(context); // Close loader
         _onSearchChanged();
         _isFormVisible = false;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Book added successfully')));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Book added successfully')));
       } catch (e) {
         if (!mounted) return;
         Navigator.pop(context); // Close loader
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error: $e')));
       }
     }
   }
@@ -166,7 +174,10 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
         title: Text('delete_confirm_title'.tr()),
         content: Text('delete_confirm_msg'.tr()),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: Text('cancel_btn'.tr())),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('cancel_btn'.tr()),
+          ),
           ElevatedButton(
             onPressed: () {
               setState(() {
@@ -205,10 +216,22 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
                   ),
                 ),
               const SizedBox(height: 10),
-              ListTile(title: Text('book_author_label'.tr()), subtitle: Text(book.author)),
-              ListTile(title: Text('book_pages_label'.tr()), subtitle: Text(book.totalPages)),
-              ListTile(title: Text('book_year_label'.tr()), subtitle: Text(book.publishedYear)),
-              ListTile(title: Text('book_category_label'.tr()), subtitle: Text(book.category)),
+              ListTile(
+                title: Text('book_author_label'.tr()),
+                subtitle: Text(book.author),
+              ),
+              ListTile(
+                title: Text('book_pages_label'.tr()),
+                subtitle: Text(book.totalPages),
+              ),
+              ListTile(
+                title: Text('book_year_label'.tr()),
+                subtitle: Text(book.publishedYear),
+              ),
+              ListTile(
+                title: Text('book_category_label'.tr()),
+                subtitle: Text(book.category),
+              ),
               const Divider(),
               ListTile(
                 title: Text('Download Status'),
@@ -222,14 +245,21 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
                 trailing: book.bookFile != null
                     ? Icon(
                         book.isPurchaseRequired ? Icons.lock : Icons.download,
-                        color: book.isPurchaseRequired ? Colors.amber : Colors.green,
+                        color: book.isPurchaseRequired
+                            ? Colors.amber
+                            : Colors.green,
                       )
                     : const Icon(Icons.access_time, color: Colors.grey),
               ),
             ],
           ),
         ),
-        actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text('cancel_btn'.tr()))],
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('cancel_btn'.tr()),
+          ),
+        ],
       ),
     );
   }
@@ -268,8 +298,13 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
                       decoration: InputDecoration(
                         hintText: 'search_hint'.tr(),
                         prefixIcon: const Icon(Icons.search),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
                       ),
                     ),
                   ),
@@ -289,8 +324,12 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  _editingIndex != null ? 'action_edit'.tr() : 'add_new_book_btn'.tr(),
-                                  style: Theme.of(context).textTheme.headlineSmall,
+                                  _editingIndex != null
+                                      ? 'action_edit'.tr()
+                                      : 'add_new_book_btn'.tr(),
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.headlineSmall,
                                 ),
                                 const SizedBox(height: 20),
                                 // Image Picker Logic
@@ -304,25 +343,46 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
                                         height: 140,
                                         decoration: BoxDecoration(
                                           color: Colors.grey[200],
-                                          border: Border.all(color: Colors.grey),
-                                          borderRadius: BorderRadius.circular(8),
+                                          border: Border.all(
+                                            color: Colors.grey,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
                                         ),
                                         child: _selectedImage != null
                                             ? ClipRRect(
-                                                borderRadius: BorderRadius.circular(8),
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
                                                 child: kIsWeb
-                                                    ? Image.network(_selectedImage!.path, fit: BoxFit.cover)
-                                                    : Image.file(File(_selectedImage!.path), fit: BoxFit.cover),
+                                                    ? Image.network(
+                                                        _selectedImage!.path,
+                                                        fit: BoxFit.cover,
+                                                      )
+                                                    : Image.file(
+                                                        File(
+                                                          _selectedImage!.path,
+                                                        ),
+                                                        fit: BoxFit.cover,
+                                                      ),
                                               )
                                             : Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
-                                                  const Icon(Icons.add_a_photo, size: 40, color: Colors.grey),
+                                                  const Icon(
+                                                    Icons.add_a_photo,
+                                                    size: 40,
+                                                    color: Colors.grey,
+                                                  ),
                                                   const SizedBox(height: 5),
                                                   Text(
                                                     'select_image_btn'.tr(),
                                                     textAlign: TextAlign.center,
-                                                    style: const TextStyle(fontSize: 12, color: Colors.grey),
+                                                    style: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.grey,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -331,47 +391,72 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
                                     const SizedBox(width: 20),
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             'book_cover_label'.tr(),
-                                            style: const TextStyle(fontWeight: FontWeight.bold),
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                           const SizedBox(height: 5),
-                                          ElevatedButton(onPressed: _pickImage, child: Text('select_image_btn'.tr())),
+                                          ElevatedButton(
+                                            onPressed: _pickImage,
+                                            child: Text(
+                                              'select_image_btn'.tr(),
+                                            ),
+                                          ),
                                           const SizedBox(height: 20),
                                           Text(
                                             'upload_book_file_label'.tr(),
-                                            style: const TextStyle(fontWeight: FontWeight.bold),
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                           const SizedBox(height: 5),
                                           Row(
                                             children: [
                                               ElevatedButton(
                                                 onPressed: _pickBookFile,
-                                                child: Text('select_file_btn'.tr()),
+                                                child: Text(
+                                                  'select_file_btn'.tr(),
+                                                ),
                                               ),
                                               const SizedBox(width: 10),
                                               if (_selectedBookFile != null)
                                                 Expanded(
                                                   child: Text(
-                                                    'file_selected'.tr(namedArgs: {'name': _selectedBookFile!.name}),
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: const TextStyle(color: Colors.green),
+                                                    'file_selected'.tr(
+                                                      namedArgs: {
+                                                        'name':
+                                                            _selectedBookFile!
+                                                                .name,
+                                                      },
+                                                    ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: const TextStyle(
+                                                      color: Colors.green,
+                                                    ),
                                                   ),
                                                 ),
                                             ],
                                           ),
                                           const SizedBox(height: 10),
                                           CheckboxListTile(
-                                            title: Text('purchase_required_label'.tr()),
+                                            title: Text(
+                                              'purchase_required_label'.tr(),
+                                            ),
                                             value: _isPurchaseRequired,
                                             onChanged: (val) {
                                               setState(() {
-                                                _isPurchaseRequired = val ?? false;
+                                                _isPurchaseRequired =
+                                                    val ?? false;
                                               });
                                             },
-                                            controlAffinity: ListTileControlAffinity.leading,
+                                            controlAffinity:
+                                                ListTileControlAffinity.leading,
                                             contentPadding: EdgeInsets.zero,
                                           ),
                                         ],
@@ -382,55 +467,101 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
                                 const SizedBox(height: 20),
                                 TextFormField(
                                   controller: _nameController,
-                                  decoration: InputDecoration(labelText: 'book_name_label'.tr()),
-                                  validator: (value) => value == null || value.isEmpty
-                                      ? 'validation_required'.tr(namedArgs: {'field': 'book_name_label'.tr()})
+                                  decoration: InputDecoration(
+                                    labelText: 'book_name_label'.tr(),
+                                  ),
+                                  validator: (value) =>
+                                      value == null || value.isEmpty
+                                      ? 'validation_required'.tr(
+                                          namedArgs: {
+                                            'field': 'book_name_label'.tr(),
+                                          },
+                                        )
                                       : null,
                                 ),
                                 DropdownButtonFormField<String>(
                                   initialValue: _selectedAuthor,
-                                  decoration: InputDecoration(labelText: 'book_author_label'.tr()),
+                                  decoration: InputDecoration(
+                                    labelText: 'book_author_label'.tr(),
+                                  ),
                                   items: _authors
-                                      .map((author) => DropdownMenuItem(value: author, child: Text(author)))
+                                      .map(
+                                        (author) => DropdownMenuItem(
+                                          value: author,
+                                          child: Text(author),
+                                        ),
+                                      )
                                       .toList(),
                                   onChanged: (value) {
                                     setState(() {
                                       _selectedAuthor = value;
                                     });
                                   },
-                                  validator: (value) => value == null || value.isEmpty
-                                      ? 'validation_required'.tr(namedArgs: {'field': 'book_author_label'.tr()})
+                                  validator: (value) =>
+                                      value == null || value.isEmpty
+                                      ? 'validation_required'.tr(
+                                          namedArgs: {
+                                            'field': 'book_author_label'.tr(),
+                                          },
+                                        )
                                       : null,
                                 ),
                                 TextFormField(
                                   controller: _pagesController,
-                                  decoration: InputDecoration(labelText: 'book_pages_label'.tr()),
+                                  decoration: InputDecoration(
+                                    labelText: 'book_pages_label'.tr(),
+                                  ),
                                   keyboardType: TextInputType.number,
-                                  validator: (value) => value == null || value.isEmpty
-                                      ? 'validation_required'.tr(namedArgs: {'field': 'book_pages_label'.tr()})
+                                  validator: (value) =>
+                                      value == null || value.isEmpty
+                                      ? 'validation_required'.tr(
+                                          namedArgs: {
+                                            'field': 'book_pages_label'.tr(),
+                                          },
+                                        )
                                       : null,
                                 ),
                                 TextFormField(
                                   controller: _yearController,
-                                  decoration: InputDecoration(labelText: 'book_year_label'.tr()),
+                                  decoration: InputDecoration(
+                                    labelText: 'book_year_label'.tr(),
+                                  ),
                                   keyboardType: TextInputType.number,
-                                  validator: (value) => value == null || value.isEmpty
-                                      ? 'validation_required'.tr(namedArgs: {'field': 'book_year_label'.tr()})
+                                  validator: (value) =>
+                                      value == null || value.isEmpty
+                                      ? 'validation_required'.tr(
+                                          namedArgs: {
+                                            'field': 'book_year_label'.tr(),
+                                          },
+                                        )
                                       : null,
                                 ),
                                 TextFormField(
                                   controller: _categoryController,
-                                  decoration: InputDecoration(labelText: 'book_category_label'.tr()),
-                                  validator: (value) => value == null || value.isEmpty
-                                      ? 'validation_required'.tr(namedArgs: {'field': 'book_category_label'.tr()})
+                                  decoration: InputDecoration(
+                                    labelText: 'book_category_label'.tr(),
+                                  ),
+                                  validator: (value) =>
+                                      value == null || value.isEmpty
+                                      ? 'validation_required'.tr(
+                                          namedArgs: {
+                                            'field': 'book_category_label'.tr(),
+                                          },
+                                        )
                                       : null,
                                 ),
                                 const SizedBox(height: 20),
                                 Row(
                                   children: [
-                                    ElevatedButton(onPressed: _saveBook, child: Text('save_btn'.tr())),
+                                    ElevatedButton(
+                                      onPressed: _saveBook,
+                                      child: Text('save_btn'.tr()),
+                                    ),
                                     const SizedBox(width: 10),
-                                    TextButton(onPressed: () => _toggleForm(), child: Text('cancel_btn'.tr())),
+                                    TextButton(
+                                      onPressed: () => _toggleForm(),
+                                      child: Text('cancel_btn'.tr()),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -446,7 +577,9 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
                       child: SizedBox(
                         width: double.infinity,
                         child: DataTable(
-                          headingRowColor: WidgetStateProperty.all(Colors.grey[200]),
+                          headingRowColor: WidgetStateProperty.all(
+                            Colors.grey[200],
+                          ),
                           columnSpacing: 20,
                           columns: [
                             DataColumn(label: Text('book_cover_label'.tr())),
@@ -465,19 +598,33 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
                                 DataCell(
                                   book.image != null
                                       ? Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 4.0,
+                                          ),
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(4),
+                                            borderRadius: BorderRadius.circular(
+                                              4,
+                                            ),
                                             child: SizedBox(
                                               width: 30,
                                               height: 45,
                                               child: kIsWeb
-                                                  ? Image.network(book.image!.path, fit: BoxFit.cover)
-                                                  : Image.file(File(book.image!.path), fit: BoxFit.cover),
+                                                  ? Image.network(
+                                                      book.image!.path,
+                                                      fit: BoxFit.cover,
+                                                    )
+                                                  : Image.file(
+                                                      File(book.image!.path),
+                                                      fit: BoxFit.cover,
+                                                    ),
                                             ),
                                           ),
                                         )
-                                      : const Icon(Icons.book, size: 30, color: Colors.grey),
+                                      : const Icon(
+                                          Icons.book,
+                                          size: 30,
+                                          color: Colors.grey,
+                                        ),
                                 ),
                                 DataCell(Text(book.name)),
                                 DataCell(Text(book.author)),
@@ -488,27 +635,53 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
                                   book.bookFile == null
                                       ? Text(
                                           'coming_soon'.tr(),
-                                          style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
+                                          style: const TextStyle(
+                                            color: Colors.orange,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         )
                                       : book.isPurchaseRequired
                                       ? Row(
                                           children: [
-                                            const Icon(Icons.lock, size: 16, color: Colors.amber),
+                                            const Icon(
+                                              Icons.lock,
+                                              size: 16,
+                                              color: Colors.amber,
+                                            ),
                                             const SizedBox(width: 5),
-                                            Text('Purchase Required', style: TextStyle(color: Colors.amber[800])),
+                                            Text(
+                                              'Purchase Required',
+                                              style: TextStyle(
+                                                color: Colors.amber[800],
+                                              ),
+                                            ),
                                           ],
                                         )
                                       : ElevatedButton.icon(
                                           onPressed: () {
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              SnackBar(content: Text('Downloading ${book.bookFile!.name}...')),
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Downloading ${book.bookFile!.name}...',
+                                                ),
+                                              ),
                                             );
                                           },
-                                          icon: const Icon(Icons.download, size: 16),
+                                          icon: const Icon(
+                                            Icons.download,
+                                            size: 16,
+                                          ),
                                           label: Text('download_btn'.tr()),
                                           style: ElevatedButton.styleFrom(
-                                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                                            textStyle: const TextStyle(fontSize: 12),
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 10,
+                                              vertical: 5,
+                                            ),
+                                            textStyle: const TextStyle(
+                                              fontSize: 12,
+                                            ),
                                           ),
                                         ),
                                 ),
@@ -517,17 +690,27 @@ class _BooksUploadScreenState extends State<BooksUploadScreen> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       IconButton(
-                                        icon: const Icon(Icons.visibility, color: Colors.blue),
+                                        icon: const Icon(
+                                          Icons.visibility,
+                                          color: Colors.blue,
+                                        ),
                                         onPressed: () => _viewBook(index),
                                         tooltip: 'action_view'.tr(),
                                       ),
                                       IconButton(
-                                        icon: const Icon(Icons.edit, color: Colors.green),
-                                        onPressed: () => _toggleForm(index: index),
+                                        icon: const Icon(
+                                          Icons.edit,
+                                          color: Colors.green,
+                                        ),
+                                        onPressed: () =>
+                                            _toggleForm(index: index),
                                         tooltip: 'action_edit'.tr(),
                                       ),
                                       IconButton(
-                                        icon: const Icon(Icons.delete, color: Colors.red),
+                                        icon: const Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                        ),
                                         onPressed: () => _deleteBook(index),
                                         tooltip: 'action_delete'.tr(),
                                       ),
